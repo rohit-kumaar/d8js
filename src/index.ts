@@ -26,7 +26,7 @@ function isValidDate(d: Date): boolean {
   return d instanceof Date && !isNaN(d.getTime());
 }
 
-export function formatDate(
+export function dateObj(
   input: Date | string | number,
   format: FormatType = "medium",
   locale?: string
@@ -72,11 +72,7 @@ export function formatDate(
       return `${h}:${m} ${ampm}`;
     }
     case "datetime":
-      return `${formatDate(d, "short", locale)}, ${formatDate(
-        d,
-        "time",
-        locale
-      )}`;
+      return `${dateObj(d, "short", locale)}, ${dateObj(d, "time", locale)}`;
     case "filename":
       return d
         .toISOString()

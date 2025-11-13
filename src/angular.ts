@@ -1,6 +1,6 @@
 // src/angular.ts
 import { Pipe, PipeTransform } from "@angular/core";
-import { formatDate, FormatType } from "./index";
+import { dateObj, FormatType } from "./index";
 
 let hasWarned = false;
 
@@ -12,7 +12,7 @@ export class TinyDateFormatPipe implements PipeTransform {
     locale?: string
   ): string {
     try {
-      return formatDate(value, format, locale);
+      return dateObj(value, format, locale);
     } catch (error: any) {
       // Detect JIT compiler missing
       const isJitError =

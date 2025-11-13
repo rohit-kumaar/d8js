@@ -1,2 +1,0 @@
-import{d as r}from"./chunk-YIVX2JS6.mjs";import m from"react";function u(t,e="medium"){let[o,a]=m.useState(()=>r(t,e));return m.useEffect(()=>{a(r(t,e))},[t,e]),o}export{u as useDateFormat};
-//# sourceMappingURL=react.mjs.map

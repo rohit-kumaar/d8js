@@ -1,16 +1,16 @@
-# tiny-date-formats
+# d8js
 
 **<1.5KB** · Zero deps · React, Vue, Angular, Node, Vanilla
 
 Named date formats with smart locale & relative time.
 
 ```bash
-npm install tiny-date-formats
+npm install d8js
 ```
 
 ## Formats
 
-| Name     | Example                      |
+| String   | Output                       |
 | :------- | :--------------------------- |
 | short    | 11/12/2025                   |
 | medium   | Nov 12, 2025                 |
@@ -23,31 +23,26 @@ npm install tiny-date-formats
 | ago      | 5m, 3h, 2d                   |
 | filename | 2025-11-12_22-51             |
 
-
 ## Usage
 
 Vanilla / Node
 
 ```Javascript
-import { formatDate } from "tiny-date-formats";
+import { dateObj } from "d8js";
 
-console.log(formatDate(new Date(), "ago")); // "0s"
-console.log(formatDate("2025-11-10", "medium")); // "Nov 12, 2025"
+console.log(dateObj(new Date(), "ago")); // "0s"
+console.log(dateObj("2025-11-10", "medium")); // "Nov 12, 2025"
 ```
 
 React
 
-```react
-import { formatDate } from "tiny-date-formats";
-import { useDateFormat } from "tiny-date-formats/react";
+```jsx
+import { dateObj } from "d8js";
 
 function App() {
-  const time = useDateFormat(new Date(), "time");
-
   return (
     <>
-      <p>{formatDate(new Date(), "short")}</p>
-      <p>Time: {time}</p>
+      <p>{dateObj(new Date(), "short")}</p>
     </>
   );
 }
@@ -59,11 +54,11 @@ Vue
 
 ```vue
 <script setup>
-  import { formatDate } from "tiny-date-formats";
+  import { dateObj } from "d8js";
 </script>
 
 <template>
-  <p>{{ formatDate("2025-11-10", "medium") }}</p>
+  <p>{{ dateObj("2025-11-10", "medium") }}</p>
 </template>
 ```
 
