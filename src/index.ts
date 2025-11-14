@@ -22,8 +22,17 @@ const units: Record<string, number> = {
   second: 1000,
 };
 
-function isValidDate(d: Date): boolean {
-  return d instanceof Date && !isNaN(d.getTime());
+const agoSymbols: Record<string, string> = {
+  second: "s",
+  minute: "m",
+  hour: "h",
+  day: "d",
+  month: "mo",
+  year: "y",
+};
+
+function isValidDate(d: unknown): d is Date {
+  return d instanceof Date && !Number.isNaN(d.getTime());
 }
 
 export function dateObj(
@@ -44,18 +53,21 @@ export function dateObj(
         day: "numeric",
         year: "numeric",
       });
+
     case "medium":
       return d.toLocaleDateString(locale, {
         month: "short",
         day: "numeric",
         year: "numeric",
       });
+
     case "long":
       return d.toLocaleDateString(locale, {
         month: "long",
         day: "numeric",
         year: "numeric",
       });
+
     case "full":
       return d.toLocaleDateString(locale, {
         weekday: "long",
@@ -63,35 +75,48 @@ export function dateObj(
         day: "numeric",
         year: "numeric",
       });
+
     case "iso":
       return d.toISOString().split("T")[0];
+
     case "time": {
       const h = d.getHours() % 12 || 12;
       const m = String(d.getMinutes()).padStart(2, "0");
       const ampm = d.getHours() >= 12 ? "PM" : "AM";
       return `${h}:${m} ${ampm}`;
     }
+
     case "datetime":
       return `${dateObj(d, "short", locale)}, ${dateObj(d, "time", locale)}`;
+
     case "filename":
       return d
         .toISOString()
         .replace(/[:.]/g, "-")
-        .split(".")[0]
-        .replace("T", "_");
+        .replace("T", "_")
+        .replace("Z", "");
+
     case "input":
       return d.toISOString().split("T")[0];
+
     case "relative":
-      return rtf.format(-Math.round(diff / units.day), "day");
+      for (const [unit, ms] of Object.entries(units)) {
+        const amount = Math.round(diff / ms);
+        if (Math.abs(amount) >= 1) {
+          return rtf.format(-amount, unit as Intl.RelativeTimeFormatUnit);
+        }
+      }
+      return "now";
+
     case "ago":
       for (const [unit, ms] of Object.entries(units)) {
         const amount = Math.floor(Math.abs(diff) / ms);
         if (amount >= 1) {
-          const symbol = unit === "minute" ? "m" : unit[0];
-          return `${amount}${symbol}`;
+          return `${amount}${agoSymbols[unit]}`;
         }
       }
       return "now";
+
     default:
       return d.toLocaleDateString(locale);
   }

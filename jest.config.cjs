@@ -6,7 +6,6 @@ module.exports = {
   extensionsToTreatAsEsm: [".ts"],
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1", // Map .js → .ts in imports
-    "^@angular/core$": "<rootDir>/node_modules/@angular/core/fesm2022/core.mjs",
   },
   transform: {
     "^.+\\.(ts|tsx)$": ["ts-jest", { useESM: true }],
