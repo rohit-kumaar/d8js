@@ -17,12 +17,12 @@ Named date formats with smart locale & relative time.
 | datetime | 11/11/2025, 3:45 PM          |
 | relative | 1 day ago                    |
 | ago      | 5m, 3h, 2d                   |
-| filename | 2025-11-12_22-51             |
+| filename | 2025-11-11_22-51             |
 | input    | 2025-11-11                   |
 
 ## Usage
 
-Vanilla / Node
+### Vanilla / Node
 
 ```js
 import { dateObj } from "d8js";
@@ -45,14 +45,12 @@ dateObj(Date.now() - 2 * 60 * 60 * 1000, "ago"); // 2h
 dateObj(Date.now() - 3 * 24 * 60 * 60 * 1000, "ago"); // 3d
 
 dateObj("2025-11-11T22:46", "filename"); // 2025-11-11_22-46
-
 dateObj("2025-11-11", "input"); // 2025-11-11
-
 dateObj(new Date(Date.now() - 5 * 1000), "ago"); // "5 seconds ago"
-dateObj(new Date(), "medium"); // "Nov 12, 2025"
+dateObj(new Date(), "medium"); // "Nov 11, 2025"
 ```
 
-React
+### React
 
 ```jsx
 import { dateObj } from "d8js";
@@ -68,7 +66,7 @@ function App() {
 export default App;
 ```
 
-Vue
+### Vue
 
 ```js
 <script setup>
@@ -76,13 +74,13 @@ Vue
 </script>
 
 <template>
-  <p>{{ dateObj("2025-11-10", "medium") }}</p>
+  <p>{{ dateObj("2025-11-11", "medium") }}</p>
 </template>
 ```
 
-Angular
+### Angular
 
-Note: DateObjPipe is a custom Angular pipe that formats dates
+**Note:** DateObjPipe is a custom Angular pipe that formats dates
 using the dateObj() npm package.
 
 Create a custom pipe: date-obj.pipe.ts
@@ -103,7 +101,7 @@ export class DateObjPipe implements PipeTransform {
 }
 ```
 
-In TS file
+#### In TS file
 
 ```TS
 import { DateObjPipe } from './date-obj-pipe';
@@ -113,7 +111,7 @@ import { DateObjPipe } from './date-obj-pipe';
 })
 ```
 
-In HTML file
+#### In HTML file
 
 ```html
 <p>{{ '2025-11-12' | dateObj:'relative' }}</p>
